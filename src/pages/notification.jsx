@@ -6,6 +6,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import {useEffect} from "react";
+import {setUser} from './login'
 
 function createData(
     name,
@@ -25,7 +27,9 @@ const rows = [
     createData('Gingerbread', 356),
 ];
 
-export default function Notification() {
+export default function CurrentNotification() {
+
+
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">

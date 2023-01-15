@@ -30,15 +30,15 @@ function Copyright(props) {
         </Typography>
     );
 }
-const persistConfig = {
-    key: 'root',
-    storage,
-};
+// const persistConfig = {
+//     key: 'root',
+//     storage,
+// };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-export const store = createStore(persistedReducer);
-export const persistor = persistStore(store);
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
+//
+// export const store = createStore(persistedReducer);
+// export const persistor = persistStore(store);
 const theme = createTheme();
 
 export default function LoginLayout() {
@@ -46,14 +46,17 @@ export default function LoginLayout() {
     const[cell,setCell]=useState('')
     const[email,setEmail]=useState('')
     const[password,setPassword]=useState('')
+    const[id,setId]=useState('')
     const[user, setUser]=useState('')
     const nav = useNavigate();
+    const navto = (use_id) => {
+        nav('/uesrlayout',{state:{name: {use_id}}});
+
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
-
         const user={cell,email,password}
 
-        console.log(user)
         fetch("http://afterglow.canadacentral.cloudapp.azure.com:8800/api/v1/login",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
@@ -61,9 +64,12 @@ export default function LoginLayout() {
 
         }).then(res=>res.json())
             .then((res)=>{
-                if (res.success){alert("login successfully");
-                    nav('/uesrlayout')}
+                if (res.success){
+                    alert("login successfully")
+
+                    navto(res.data)}
                 else{
+
                     alert("incorrect information")
                 }
             })
@@ -103,7 +109,7 @@ export default function LoginLayout() {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Sign in
+                            logIn
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                             <TextField
@@ -152,7 +158,7 @@ export default function LoginLayout() {
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
-                                Sign In
+                                LogIn
                             </Button>
                             <Grid container>
                                 <Grid item xs>

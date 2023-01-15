@@ -31,7 +31,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-    export default function SignupLayout() {
+export default function SignupLayout() {
     const[name,setName]=useState('')
     const[password,setPassword]=useState('')
     const[email,setEmail]=useState('')

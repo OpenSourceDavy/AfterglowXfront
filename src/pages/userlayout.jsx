@@ -3,27 +3,40 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useEffect, useState } from "react";
-import Mapshow from '../component/mapshow'
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import Mapshow from "../component/mapshow";
 import {useNavigate} from "react-router-dom";
 
+export default function Userlayout() {
 
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    let nav = useNavigate();
 
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
-export  function UserLayout() {
-    const nav = useNavigate();
-    const handleNotification=()=>{
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const handleNewNotification=()=>{
         nav('/notification')
+    }
+    const handleNotification=()=>{
+        nav('/curnotification')
     }
     const handleLogout=()=>{
         nav('/')
     }
 
     return (
-
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
@@ -39,15 +52,42 @@ export  function UserLayout() {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         AfterglowX
                     </Typography>
-                    <Button color="inherit" onClick={handleNotification}>Notification Rules</Button>
-                    <Button color="inherit" onClick={handleLogout}>Logout</Button>
 
+                        <div>
+                            <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleMenu}
+                                color="inherit"
+                            >
+                                <AccountCircle />
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorEl)}
+                                onClose={handleClose}
+                            >
+                                <MenuItem onClick={handleNewNotification}>New Notification</MenuItem>
+                                <MenuItem onClick={handleNotification}>Current Notification</MenuItem>
+                                <MenuItem onClick={handleLogout}>Log out</MenuItem>
+                            </Menu>
+                        </div>
 
                 </Toolbar>
             </AppBar>
             <Mapshow></Mapshow>
-
         </Box>
-
     );
 }

@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import Mapshow from '../component/mapshow'
 import {useNavigate} from "react-router-dom";
 import StickyFooter from "../component/footer";
+import HeatmapComponent from "../component/heatmap";
 
 
 
@@ -45,6 +46,7 @@ export  function Layout() {
                 </Toolbar>
             </AppBar>
             <Mapshow ></Mapshow>
+
             <StickyFooter></StickyFooter>
         </Box>
 
