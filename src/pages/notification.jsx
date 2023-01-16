@@ -8,6 +8,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {useEffect} from "react";
 import {setUser} from './login'
+import Button from "@mui/material/Button";
+import {useLocation} from "react-router-dom";
 
 function createData(
     name,
@@ -28,7 +30,24 @@ const rows = [
 ];
 
 export default function CurrentNotification() {
+    let location = useLocation()
+    const handleCheckCurRule=()=>{
 
+        const user_id = location.state.name
+        const user_autoken = location.state.tok.user_token.token
+        fetch("http://afterglow.canadacentral.cloudapp.azure.com:8800/v1/rule",{
+            method:"POST",
+            headers:{Authorization:user_autoken},
+            body:JSON.stringify(user_id)
+
+        }).then(res=>res.json())
+            .then((res)=>{
+                if (res){
+                    alert("noti successfully");
+                   }
+
+            })
+    }
 
     return (
         <TableContainer component={Paper}>
@@ -59,6 +78,15 @@ export default function CurrentNotification() {
                     ))}
                 </TableBody>
             </Table>
+            <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={handleCheckCurRule}
+            >
+                check current rules
+            </Button>
         </TableContainer>
     );
 }

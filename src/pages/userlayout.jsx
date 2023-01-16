@@ -13,6 +13,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Mapshow from "../component/mapshow";
 import {useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
+import {useEffect} from "react";
 
 export default function Userlayout() {
 
@@ -30,12 +32,24 @@ export default function Userlayout() {
         nav('/notification')
     }
     const handleNotification=()=>{
-        nav('/curnotification')
+        let user_id = location.state.name
+        let user_token = location.state.tok
+        nav('/curnotification',{state:{name: {user_id}, tok:{user_token}}})
     }
     const handleLogout=()=>{
         nav('/')
     }
+    const location = useLocation();
 
+    useEffect(()=>{
+        if (location.state == null){
+            alert("unauthorized visit")
+            nav('/')
+        }
+        else{const user_id = location.state.name
+            const user_token = location.state.tok
+        console.log(user_id)
+        console.log(user_token);}},[])
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">

@@ -45,7 +45,7 @@ export default function SignupLayout() {
         const user={name,country,cell,email,password}
 
         console.log(user)
-        fetch("http://afterglow.canadacentral.cloudapp.azure.com:8800/api/v1/register",{
+        fetch("http://afterglow.canadacentral.cloudapp.azure.com:8800/v1/register",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(user)
@@ -54,7 +54,7 @@ export default function SignupLayout() {
             .then((res)=>{
             if (res){alert("register successfully");
                 alert("signup successfully, now redirect to home page")
-                nav('/uesrlayout')}
+                nav('/')}
 
         })
 

@@ -16,7 +16,7 @@ export default function App() {
                 <Route path="/" element={<Layout/>}/>
                 <Route path="signup" element={<SignupLayout/>}/>
                 <Route path="login" element={<LoginLayout/>}/>
-                <Route path="uesrlayout" element={<Userlayout/>}/>
+                <Route path="userlayout" element={<Userlayout/>}/>
                 <Route path="curnotification" element={<CurrentNotification/>}/>
             </Routes>
         </BrowserRouter>

@@ -49,28 +49,31 @@ export default function LoginLayout() {
     const[id,setId]=useState('')
     const[user, setUser]=useState('')
     const nav = useNavigate();
-    const navto = (use_id) => {
-        nav('/uesrlayout',{state:{name: {use_id}}});
+    const navto = (use_id,token) => {
+        nav('/userlayout',{state:{name: {use_id}, tok:{token}}});
 
     }
     const handleSubmit = (e) => {
         e.preventDefault();
         const user={cell,email,password}
 
-        fetch("http://afterglow.canadacentral.cloudapp.azure.com:8800/api/v1/login",{
+        fetch("http://afterglow.canadacentral.cloudapp.azure.com:8800/v1/login",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(user)
 
         }).then(res=>res.json())
             .then((res)=>{
-                if (res.success){
+                if (res.code===1){
                     alert("login successfully")
 
-                    navto(res.data)}
-                else{
+                    navto(res.data,res.accessToken)}
+                else if(res.code===-1){
 
-                    alert("incorrect information")
+                    alert("User not found with the given email/phone")
+                }
+                else if (res.code===-2){
+                    alert("Invalid credentials")
                 }
             })
 
