@@ -15,8 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import backURL from '../sunsetBackground.jpg'
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+
 
 function Copyright(props) {
     return (

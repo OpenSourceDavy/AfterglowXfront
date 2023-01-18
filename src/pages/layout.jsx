@@ -11,16 +11,43 @@ import Mapshow from '../component/mapshow'
 import {useNavigate} from "react-router-dom";
 import StickyFooter from "../component/footer";
 import HeatmapComponent from "../component/heatmap";
-
+import HeatMapshow from "../component/heatmap";
+import Leafheatmap from '../component/leafletheatmap'
 
 
 export  function Layout() {
+    const[userlat,setLat] = useState('')
+    const[userlng,setLng] = useState('')
     const nav = useNavigate();
+
     const handleSignup=()=>{
         nav('/signup')
     }
     const handleLogin=()=>{
         nav('/login')
+    }
+    if (navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(pos=>{
+            setLat(pos.coords.latitude)
+            setLng(pos.coords.longitude)
+
+            // 获取到了用户当前位置的坐标
+
+        },error=>{
+            switch(error.code){
+                case error.PERMISSION_DENIED:
+                    alert("please enable location access");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Fail to locate");
+                    break;
+                case error.TIMEOUT:
+                    alert("Timeout");
+                    break;
+                default:
+                    alert("Fail to locate");
+            }
+        });
     }
     return (
 
@@ -45,8 +72,9 @@ export  function Layout() {
 
                 </Toolbar>
             </AppBar>
-            <Mapshow ></Mapshow>
-
+            {/*<Mapshow ></Mapshow>*/}
+            {/*<HeatMapshow></HeatMapshow>*/}
+            <Leafheatmap userLat={userlat} userLng={userlng}></Leafheatmap>
             <StickyFooter></StickyFooter>
         </Box>
 

@@ -6,20 +6,46 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
+
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Mapshow from "../component/mapshow";
 import {useNavigate} from "react-router-dom";
 import {useLocation} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+
+import StickyFooter from "../component/footer";
+import Leafheatmap from "../component/leafletheatmap";
+
 
 export default function Userlayout() {
-
+    const[userlat,setLat] = useState('')
+    const[userlng,setLng] = useState('')
     const [anchorEl, setAnchorEl] = React.useState(null);
     let nav = useNavigate();
+    if (navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(pos=>{
+            setLat(pos.coords.latitude)
+            setLng(pos.coords.longitude)
+
+            // 获取到了用户当前位置的坐标
+
+        },error=>{
+            switch(error.code){
+                case error.PERMISSION_DENIED:
+                    alert("please enable location access");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Fail to locate");
+                    break;
+                case error.TIMEOUT:
+                    alert("Timeout");
+                    break;
+                default:
+                    alert("Fail to locate");
+            }
+        });
+    }
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -101,7 +127,11 @@ export default function Userlayout() {
 
                 </Toolbar>
             </AppBar>
-            <Mapshow></Mapshow>
+
+
+            <Leafheatmap userLat={userlat} userLng={userlng}></Leafheatmap>
+            <StickyFooter></StickyFooter>
+
         </Box>
     );
 }
