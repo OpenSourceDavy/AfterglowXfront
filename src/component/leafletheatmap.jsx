@@ -2,7 +2,12 @@ import React, {useEffect, useState} from "react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import "leaflet.heat";
+import CssBaseline from '@mui/material/CssBaseline';
 
+import Container from '@mui/material/Container';
+import Card from '@mui/material/Card';
+
+import CardContent from '@mui/material/CardContent';
 export default function Leafheatmap({userLat,userLng}) {
 
 
@@ -56,5 +61,12 @@ export default function Leafheatmap({userLat,userLng}) {
 
 
     });
-    return <div id="map" style={{ height: "100vh" }}></div>;
+    // return <div id="map" style={{ height: "100vh" }}></div>;
+    return (
+
+            <Container maxWidth= 'xl' sx={{ width: "1000vh" }}>
+                <div id="map" style={{ height: "100vh" }}></div>;
+            </Container>
+
+    );
 }

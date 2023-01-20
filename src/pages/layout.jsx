@@ -13,6 +13,7 @@ import StickyFooter from "../component/footer";
 import HeatmapComponent from "../component/heatmap";
 import HeatMapshow from "../component/heatmap";
 import Leafheatmap from '../component/leafletheatmap'
+import Paper from "@mui/material/Paper";
 
 
 export  function Layout() {
@@ -51,7 +52,12 @@ export  function Layout() {
     }
     return (
 
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1 ,backgroundImage:'url(/sunsetbackground.jpg)',
+
+            backgroundColor: (t) =>
+                t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'}}>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
@@ -74,7 +80,9 @@ export  function Layout() {
             </AppBar>
             {/*<Mapshow ></Mapshow>*/}
             {/*<HeatMapshow></HeatMapshow>*/}
+
             <Leafheatmap userLat={userlat} userLng={userlng}></Leafheatmap>
+
             <StickyFooter></StickyFooter>
         </Box>
 
