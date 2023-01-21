@@ -56,7 +56,7 @@ export default function LoginLayout() {
         e.preventDefault();
         const user={cell,email,password}
 
-        fetch("http://afterglow.canadacentral.cloudapp.azure.com:8800/v1/login",{
+        fetch("http://ec2-3-83-223-34.compute-1.amazonaws.com:8800/api/v1/login",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(user)

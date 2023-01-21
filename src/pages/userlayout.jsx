@@ -77,7 +77,12 @@ export default function Userlayout() {
         console.log(user_id)
         console.log(user_token);}},[])
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1,backgroundImage:'url(/sunsetbackground.jpg)',
+
+            backgroundColor: (t) =>
+                t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center' }}>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
