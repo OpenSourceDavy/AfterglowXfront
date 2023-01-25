@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import backURL from '../sunsetBackground.jpg'
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import GoogleLogin from "react-google-login";
+import {blue} from "@mui/material/colors";
 
 
 function Copyright(props) {
@@ -41,7 +43,9 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function LoginLayout() {
-
+    const responseGoogle = (response) => {
+        console.log(response);
+    }
     const[cell,setCell]=useState('')
     const[email,setEmail]=useState('')
     const[password,setPassword]=useState('')
@@ -174,9 +178,19 @@ export default function LoginLayout() {
                                     </Link>
                                 </Grid>
                             </Grid>
-                            <Copyright sx={{ mt: 5 }} />
+
                         </Box>
+                        <GoogleLogin
+                            clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+
+                            buttonText="Login with Google"
+                            onSuccess={responseGoogle}
+                            onFailure={responseGoogle}
+                            cookiePolicy={'single_host_origin'}
+                        />
+                        <Copyright sx={{ mt: 5 }} />
                     </Box>
+
                 </Grid>
             </Grid>
         </ThemeProvider>
