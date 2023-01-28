@@ -33,13 +33,27 @@ const theme = createTheme();
 
 export default function SignupLayout() {
     const[name,setName]=useState('')
+    const [confirmPassword, setConfirmPassword] = useState("");
     const[password,setPassword]=useState('')
     const[email,setEmail]=useState('')
     const[country,setCountry]=useState('')
     const[cell,setCell]=useState('')
+    const [error, setError] = useState("");
         const[user, setUser]=useState('')
     const nav = useNavigate();
+    const checkPasswords = (event) => {
+        if (password !== confirmPassword) {
+            setConfirmPassword(event.target.value)
+            setError("Passwords do not match");
+            event.preventDefault();
+        } else {
+            setError("");
+        }
+    }
+    console.log(confirmPassword)
+
     const handleSubmit = (e) => {
+        checkPasswords(e)
         e.preventDefault();
 
         const user={name,country,cell,email,password}
@@ -98,15 +112,19 @@ export default function SignupLayout() {
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                             <TextField
                                 margin="normal"
-                                required
+
                                 fullWidth
                                 id="Name"
                                 label="Name"
                                 name="Name"
                                 autoComplete="name"
-                                autoFocus
+                                required={true}
                                 value={name}
+                                autoFocus={true}
+
                                 onChange={(e)=>setName(e.target.value)}
+                                error={name === ""}
+                                helperText={name === "" ? ' ' : ' '}
                             />
                             <TextField
                                 margin="normal"
@@ -116,10 +134,26 @@ export default function SignupLayout() {
                                 label="Password"
                                 type="password"
                                 id="password"
-                                autoComplete="current-password"
                                 value={password}
                                 onChange={(e)=>setPassword(e.target.value)}
+                                error={password === ""}
+                                helperText={password === "" ? ' ' : ' '}
                             />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="Confirm-Password"
+                                label="Confirm-Password"
+                                type="Password"
+                                id="Confirm-Password"
+                                value={confirmPassword}
+                                onChange={(e)=>setConfirmPassword(e.target.value)}
+                                error={confirmPassword === ""}
+                                helperText={confirmPassword === "" ? ' ' : ' '}
+
+                            />
+                            <div style={{ color: "red" }}>  {error}</div>
                             <TextField
                                 margin="normal"
                                 required
@@ -131,6 +165,8 @@ export default function SignupLayout() {
                                 autoComplete="email"
                                 value={email}
                                 onChange={(e)=>setEmail(e.target.value)}
+                                error={email === ""}
+                                helperText={email === "" ? ' ' : ' '}
                             />
                             <TextField
                                 margin="normal"
@@ -143,6 +179,8 @@ export default function SignupLayout() {
                                 autoComplete="country"
                                 value={country}
                                 onChange={(e)=>setCountry(e.target.value)}
+                                error={country === ""}
+                                helperText={country === "" ? ' ' : ' '}
                             />
                             <TextField
                                 margin="normal"
@@ -155,6 +193,8 @@ export default function SignupLayout() {
                                 autoComplete="tel"
                                 value={cell}
                                 onChange={(e)=>setCell(e.target.value)}
+                                error={cell === ""}
+                                helperText={cell === "" ? ' ' : ' '}
                             />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
