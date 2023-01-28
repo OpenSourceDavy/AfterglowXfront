@@ -34,28 +34,78 @@ const theme = createTheme();
 export default function SignupLayout() {
     const[name,setName]=useState('')
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [passwordErrorText, setPasswordErrorText] = React.useState("");
     const[password,setPassword]=useState('')
     const[email,setEmail]=useState('')
     const[country,setCountry]=useState('')
     const[cell,setCell]=useState('')
-    const [error, setError] = useState("");
-        const[user, setUser]=useState('')
+    const [nameerror, setnameError] = useState("");
+    const [nameCheckError, setnameCheckError] = useState("");
+    const [passerror, setpassError] = useState("");
+    const [mailerror, setmailError] = useState("");
+    const [countryerror, setcountryError] = useState("");
+    const [cellerror, setcellError] = useState("");
+    const[user, setUser]=useState('')
     const nav = useNavigate();
     const checkPasswords = (event) => {
         if (password !== confirmPassword) {
-            setConfirmPassword(event.target.value)
-            setError("Passwords do not match");
+
+            setPasswordErrorText("Passwords do not match");
             event.preventDefault();
         } else {
-            setError("");
+            setPasswordErrorText("");
         }
     }
-    console.log(confirmPassword)
+
+    // const checkUsername = (event) => {
+    //     fetch("/users/isUsername",{
+    //         method:"POST",
+    //         headers:{"Content-Type":"application/json"},
+    //         body:JSON.stringify(name)
+    //
+    //     }).then(res=>res.json())
+    //         .then((res)=>{
+    //         if(!res.success){
+    //             setnameCheckError("not avaliable")
+    //             event.preventDefault();
+    //         }
+    //         else{
+    //             setnameCheckError("avaliable")
+    //         }
+    //     })
+    // }
+    const checkUsername = (event) => {
+        setnameCheckError("not avaliable")
+    }
 
     const handleSubmit = (e) => {
         checkPasswords(e)
         e.preventDefault();
-
+        if (!email) {
+            setmailError("Please enter email");
+        } else {
+            setmailError("");
+        }
+        if (!password) {
+            setpassError("Please enter password");
+        } else {
+            setpassError("");
+        }
+        if (!name) {
+            setnameError("Please enter name");
+        } else {
+            setnameError("");
+        }
+        if (!cell) {
+            setcellError("Please enter cell");
+        } else {
+            setcellError("");
+        }
+        if (!country) {
+            setcountryError("Please enter country");
+        } else {
+            setcountryError("");
+        }
         const user={name,country,cell,email,password}
 
         console.log(user)
@@ -122,10 +172,18 @@ export default function SignupLayout() {
                                 value={name}
                                 autoFocus={true}
 
-                                onChange={(e)=>setName(e.target.value)}
-                                error={name === ""}
-                                helperText={name === "" ? ' ' : ' '}
+                                onChange={(e)=>{setName(e.target.value)}}
+                                error={nameerror}
+                                helperText={nameerror}
                             />
+                            <div style={{ color: "red" }}> <Button
+                                halfWidth
+                                variant="contained"
+                                sx={{ mt: 1, mb: 0 }}
+                                onClick={(e)=>checkUsername(e)}
+                            >
+                                Check name availability:  {nameCheckError}
+                            </Button></div>
                             <TextField
                                 margin="normal"
                                 required
@@ -136,8 +194,8 @@ export default function SignupLayout() {
                                 id="password"
                                 value={password}
                                 onChange={(e)=>setPassword(e.target.value)}
-                                error={password === ""}
-                                helperText={password === "" ? ' ' : ' '}
+                                error={passerror}
+                                helperText={passerror}
                             />
                             <TextField
                                 margin="normal"
@@ -149,11 +207,11 @@ export default function SignupLayout() {
                                 id="Confirm-Password"
                                 value={confirmPassword}
                                 onChange={(e)=>setConfirmPassword(e.target.value)}
-                                error={confirmPassword === ""}
-                                helperText={confirmPassword === "" ? ' ' : ' '}
+                                error={passwordErrorText}
+                                helperText={passwordErrorText}
 
                             />
-                            <div style={{ color: "red" }}>  {error}</div>
+
                             <TextField
                                 margin="normal"
                                 required
@@ -165,8 +223,9 @@ export default function SignupLayout() {
                                 autoComplete="email"
                                 value={email}
                                 onChange={(e)=>setEmail(e.target.value)}
-                                error={email === ""}
-                                helperText={email === "" ? ' ' : ' '}
+                                error={mailerror}
+                                helperText={mailerror}
+
                             />
                             <TextField
                                 margin="normal"
@@ -179,8 +238,8 @@ export default function SignupLayout() {
                                 autoComplete="country"
                                 value={country}
                                 onChange={(e)=>setCountry(e.target.value)}
-                                error={country === ""}
-                                helperText={country === "" ? ' ' : ' '}
+                                error={countryerror}
+                                helperText={countryerror}
                             />
                             <TextField
                                 margin="normal"
@@ -193,8 +252,8 @@ export default function SignupLayout() {
                                 autoComplete="tel"
                                 value={cell}
                                 onChange={(e)=>setCell(e.target.value)}
-                                error={cell === ""}
-                                helperText={cell === "" ? ' ' : ' '}
+                                error={cellerror}
+                                helperText={cellerror}
                             />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
@@ -210,13 +269,13 @@ export default function SignupLayout() {
                             </Button>
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href="#" variant="body2">
+                                    <Link href="/" variant="body2">
                                         Forgot password?
                                     </Link>
                                 </Grid>
-                                <Grid item>
-                                    <Link href="#" variant="body2">
-                                        {"Don't have an account? Sign Up"}
+                                <Grid item >
+                                    <Link href="/login" variant="body2">
+                                        Already Have an Account?
                                     </Link>
                                 </Grid>
                             </Grid>

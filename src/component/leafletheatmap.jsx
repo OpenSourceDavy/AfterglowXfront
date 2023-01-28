@@ -20,7 +20,7 @@ export default function Leafheatmap({userLat,userLng}) {
     const setpoints=(userLat,userLng)=>{
         let points=[]
         let i =0
-        while(i<1){
+        while(i<0.3){
             points.push([userLat+(Math.random(-1,1)),userLng+(Math.random(-1,1)),Math.random()])
             points.push([userLat-(Math.random(-1,1)),userLng+(Math.random(-1,1)),Math.random()])
             points.push([userLat+(Math.random(-1,1)),userLng-(Math.random(-1,1)),Math.random()])
